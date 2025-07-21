@@ -1,0 +1,69 @@
+---
+import { config } from '../utils/config.ts';
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="关于">
+
+  <section class="mt-10">
+    <div class="px-6">
+        <h1 class="text-3xl font-bold mb-6">关于</h1>
+    </div>
+  </section>
+    
+</Layout>
+
+<style>
+  .about-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem 0;
+  }
+
+  .content h2 {
+    margin: 2rem 0 1rem;
+    color: #2c3e50;
+  }
+
+  .content p {
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .contact-info {
+    list-style: none;
+    padding: 0;
+  }
+
+  .contact-info li {
+    margin: 0.5rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .contact-info li:before {
+    content: "✉️";
+    position: absolute;
+    left: 0;
+  }
+
+  /* 标题层级样式 - 使用全局选择器确保应用到Markdown内容 */
+  :global(.prose h1) {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+  }
+  :global(.prose h2) {
+    font-size: 2.25rem;
+    font-weight: bold;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  :global(.prose h3) {
+    font-size: 1.75rem;
+    font-weight: bold;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+</style>

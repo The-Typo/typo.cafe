@@ -1,0 +1,39 @@
+{
+  "avaliable": true,
+  "visible": false,
+  "id": 1,
+  "title": "科技前沿：人工智能的未来发展",
+  "description": "本期节目探讨人工智能技术的最新发展趋势和未来应用前景。",
+  "audioUrl": "https://saltradio.org/24/audio.mp3",
+  "duration": "50:28",
+  "publishDate": "2025-7-22 02:40:00",
+  "hosts": ["景蓝 Yurik"],
+  "programInfo": "本期节目探讨人工智能技术的最新发展趋势和未来应用前景。人工智能技术发展现状与未来趋势分析",
+  "timeline": [
+    { "time": "05:30", "content": "大语言模型的最新进展" },
+    { "time": "15:45", "content": "AI在各行业的应用案例" },
+    { "time": "25:10", "content": "人工智能伦理与监管问题" },
+    { "time": "35:20", "content": "普通人如何应对AI时代的挑战" }
+  ],
+  "references": [
+    {
+      "name": "《人工智能：现代方法》教材",
+      "url": "https://example.com/ai-book",
+      "description": "全面介绍人工智能理论与实践的经典教材"
+    },
+    {
+      "name": "AI Research Newsletter",
+      "url": "https://example.com/ai-newsletter",
+      "description": "最新人工智能研究动态简报"
+    }
+  ],
+  "guests": [
+    {
+      "name": "李华",
+      "title": "AI研究员",
+      "url": "none"
+    }
+  ],
+  "coverImage": "",
+  "tags": ["人工智能", "科技", "未来趋势"]
+}

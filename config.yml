@@ -1,0 +1,21 @@
+# 站点配置文件
+# 统一管理站点名称, 描述等全局信息
+
+# 站点基本信息
+site:
+  name: "时笺 Typo"
+  description: "我们分享生活、感悟和杂七杂八内容的频道。"
+  author: "Your Name"
+  keywords: ["播客", "Podcast"]
+  url: "https://typo.cafe"
+
+# 社交媒体链接
+social:
+  twitter: "https://twitter.com/example"
+  github: "https://github.com/example"
+  instagram: "https://instagram.com/example"
+
+# 页脚信息
+footer:
+  copyright: "© 2023 播客网站. 保留所有权利."
+  powered_by: "Astro"
