@@ -1,9 +1,9 @@
-import { parseFile } from 'music-metadata';
-import fetch from 'node-fetch';
-import { createWriteStream } from 'fs';
-import { tmpdir } from 'os';
-import { join } from 'path';
-import { unlink } from 'fs/promises';
+import { parseFile } from "music-metadata";
+import fetch from "node-fetch";
+import { createWriteStream } from "fs";
+import { tmpdir } from "os";
+import { join } from "path";
+import { unlink } from "fs/promises";
 
 // 从远程URL获取音频时长
 export async function getAudioDurationFromUrl(audioUrl) {
@@ -20,8 +20,8 @@ export async function getAudioDurationFromUrl(audioUrl) {
     const fileStream = createWriteStream(tempFilePath);
     await new Promise((resolve, reject) => {
       response.body.pipe(fileStream);
-      fileStream.on('finish', resolve);
-      fileStream.on('error', reject);
+      fileStream.on("finish", resolve);
+      fileStream.on("error", reject);
     });
 
     // 解析音频元数据
@@ -35,12 +35,12 @@ export async function getAudioDurationFromUrl(audioUrl) {
     if (duration) {
       const minutes = Math.floor(duration / 60);
       const seconds = Math.floor(duration % 60);
-      return `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+      return `${minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
     }
 
-    return '未知时长';
+    return "未知时长";
   } catch (error) {
-    console.error('Error getting audio duration:', error);
-    return '获取失败';
+    console.error("Error getting audio duration:", error);
+    return "获取失败";
   }
 }

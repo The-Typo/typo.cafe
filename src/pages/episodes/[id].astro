@@ -31,7 +31,7 @@ export async function getStaticPaths() {
 }
 
 const { id } = Astro.params;
-import { getAudioDurationFromUrl } from '../../utils/audioMetadata.js';
+import { getAudioDurationFromUrl } from "../../utils/audioMetadata.js";
 
 const episodePath = path.resolve(`episodes/${id}.json`);
 const episode = JSON.parse(fs.readFileSync(episodePath, "utf8"));
@@ -55,7 +55,8 @@ const episode = JSON.parse(fs.readFileSync(episodePath, "utf8"));
       </div>
       <div class="episode-header-info col-span-1 md:col-span-2 space-y-4">
         <h1 class="text-2xl sm:text-3xl font-semibold tracking-tight">
-          <span class="ep-id">№{id}</span> {episode.title}
+          <span class="ep-id">№{id}</span>
+          {episode.title}
         </h1>
         <p class="text-apple-muted text-base leading-relaxed">
           {episode.description}
@@ -63,7 +64,8 @@ const episode = JSON.parse(fs.readFileSync(episodePath, "utf8"));
         <div
           class="flex flex-wrap gap-x-6 gap-y-2 text-xs text-apple-muted pt-2"
         >
-          <span class="publish-date" data-publish-date={episode.publishDate} />
+          <span class="publish-date" data-publish-date={episode.publishDate}
+          ></span>
           <span class="duration">时长：{episode.duration}</span>
         </div>
       </div>
@@ -172,15 +174,15 @@ const episode = JSON.parse(fs.readFileSync(episodePath, "utf8"));
       }
     </div>
   </article>
-    <script is:inline type="module">
-      import { formatDate } from '../../utils/dateFormatter.js';
-      document.addEventListener('DOMContentLoaded', () => {
-        // 格式化日期
-        const dateElement = document.querySelector('.publish-date');
-        if (dateElement) {
-          const publishDate = dateElement.dataset.publishDate;
-          dateElement.textContent = `发布时间：${formatDate(publishDate)}`;
-        }
-      });
-    </script>
+  <script is:inline type="module">
+    import { formatDate } from "../../utils/dateFormatter.js";
+    document.addEventListener("DOMContentLoaded", () => {
+      // 格式化日期
+      const dateElement = document.querySelector(".publish-date");
+      if (dateElement) {
+        const publishDate = dateElement.dataset.publishDate;
+        dateElement.textContent = `发布时间：${formatDate(publishDate)}`;
+      }
+    });
+  </script>
 </Layout>

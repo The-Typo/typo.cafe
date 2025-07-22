@@ -42,7 +42,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - run: pnpm add sharp      
+      - run: pnpm add sharp
 
       - name: Run Astro Build
         run: pnpm astro build

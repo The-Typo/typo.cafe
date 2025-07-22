@@ -1,5 +1,5 @@
 ---
-import { config } from '../utils/config.ts';
+import { config } from "../utils/config.ts";
 import Layout from "../layouts/Layout.astro";
 
 const links = [
@@ -12,53 +12,49 @@ const links = [
   {
     name: "Anyway.FM",
     url: "https://anyway.fm",
-    description: "由 UI 设计师 JJ Ying 和 Leon Gao 主播的设计杂谈播客，入选 2015 年 Apple 最佳播客榜单。",
+    description:
+      "由 UI 设计师 JJ Ying 和 Leon Gao 主播的设计杂谈播客，入选 2015 年 Apple 最佳播客榜单。",
     icon: "https://s.anyway.red/anyway.fm/favicon/theme-default-32.png",
-  }
+  },
 ];
 ---
 
 <Layout title="友情链接" description="11212这是一个关于播客的网站">
-
   <section class="mt-10">
     <div class="px-6">
-        <h1 class="text-3xl font-bold mb-6">友情链接</h1>
-        <div class="links-grid">
-          {
-            links.map((link) => (
-              <div class="bg-white rounded-xl shadow-sm p-5 border border-gray-100 hover:shadow-md transition-shadow duration-200 flex flex-col items-start justify-between h-full">
-                <img
-                    src={`${link.icon}`}
-                    alt={`${link.name} icon`}
-                    class="w-10 h-10 object-cover rounded-full"
-                    width="40"
-                    height="40"
-                    onerror="this.src='/img/default-avatar.png'; this.onerror=null;"
-                  />
-                <div class="flex-grow mt-4 flex flex-col justify-between gap-3 w-full">
-                    <h3 class="text-lg font-semibold text-gray-900">
-                      {link.name}
-                    </h3>
-                    <p class="text-gray-600 leading-relaxed flex-1">
-                      {link.description}
-                    </p>
-                    <a
-                      href={link.url}
-                      class="flex items-center justify-center min-w-[150px] max-w-[150px] w-[150px] flex-shrink-0 px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 overflow-hidden text-ellipsis whitespace-nowrap"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      访问网站
-                    </a>
-                  </div>
+      <h1 class="text-3xl font-bold mb-6">友情链接</h1>
+      <div class="links-grid">
+        {
+          links.map((link) => (
+            <div class="bg-white rounded-xl shadow-sm p-5 border border-gray-100 hover:shadow-md transition-shadow duration-200 flex flex-col items-start justify-between h-full">
+              <img
+                src={`${link.icon}`}
+                alt={`${link.name} icon`}
+                class="w-10 h-10 object-cover rounded-full"
+                width="40"
+                height="40"
+                onerror="this.src='/img/default-avatar.png'; this.onerror=null;"
+              />
+              <div class="flex-grow mt-4 flex flex-col justify-between gap-3 w-full">
+                <h3 class="text-lg font-semibold text-gray-900">{link.name}</h3>
+                <p class="text-gray-600 leading-relaxed flex-1">
+                  {link.description}
+                </p>
+                <a
+                  href={link.url}
+                  class="flex items-center justify-center min-w-[150px] max-w-[150px] w-[150px] flex-shrink-0 px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 overflow-hidden text-ellipsis whitespace-nowrap"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  访问网站
+                </a>
               </div>
-            ))
-          }
-        </div>
+            </div>
+          ))
+        }
+      </div>
     </div>
   </section>
-
-  
 </Layout>
 
 <style>
@@ -69,11 +65,11 @@ const links = [
   }
 
   .links-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  grid-auto-rows: 1fr;
-  gap: 2rem;
-  margin-top: 2rem;
-  align-items: stretch;
-}
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-auto-rows: 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+    align-items: stretch;
+  }
 </style>

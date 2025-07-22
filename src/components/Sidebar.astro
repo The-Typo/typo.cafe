@@ -1,0 +1,256 @@
+---
+import { config } from "../utils/config.ts";
+---
+
+<aside
+  id="sidebar"
+  class="w-64 bg-white border-r border-gray-100 fixed h-full shadow-sm z-40 transition-all duration-300 transform -translate-x-full lg:translate-x-0"
+>
+  <script>
+    // 移动端菜单逻辑
+    document.addEventListener("DOMContentLoaded", () => {
+      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+      const sidebar = document.getElementById("sidebar");
+      const mainContent = document.querySelector("main");
+      const menuLinks = document.querySelectorAll(".nav-link");
+      const overlay = document.getElementById("mobileMenuOverlay");
+      let isMenuOpen = false;
+
+      // 切换菜单显示状态
+      const toggleMenu = () => {
+        isMenuOpen = !isMenuOpen;
+        if (sidebar) {
+          sidebar.classList.toggle("-translate-x-full", !isMenuOpen);
+        }
+        if (sidebar) {
+          sidebar.classList.toggle("translate-x-0", isMenuOpen);
+        }
+        document.body.classList.toggle("overflow-hidden", isMenuOpen);
+        // 控制遮罩层显示
+        if (overlay) {
+          overlay.classList.toggle("active", isMenuOpen);
+        }
+      };
+
+      // 为菜单项添加点击关闭菜单事件（仅移动端）
+      menuLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          if (window.innerWidth < 1024) {
+            isMenuOpen = false;
+            if (sidebar) {
+            sidebar.classList.add("-translate-x-full");
+            sidebar.classList.remove("translate-x-0");}
+            document.body.classList.remove("overflow-hidden");
+            if (overlay) {
+              overlay.classList.remove("active");
+            }
+          }
+        });
+      });
+
+      // 移动端菜单按钮点击事件
+      if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener("click", toggleMenu);
+      }
+
+      // 遮罩层点击事件
+      if (overlay) {
+        overlay.addEventListener("click", toggleMenu);
+      }
+
+      // 动态计算移动端内容偏移量
+      function adjustMobileContentPadding() {
+        const mobileHeader = document.getElementById("mobileHeader");
+        const mainContent = document.querySelector("main");
+        if (window.innerWidth < 1024 && mobileHeader && mainContent) {
+          // 获取安全区域内边距和标题栏高度
+          const safeAreaTop = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--safe-area-inset-top")) || 20;
+          const headerRect = mobileHeader.getBoundingClientRect();
+          const headerHeight = headerRect.height;
+          // 设置主内容顶部内边距为标题栏高度+安全区域+200px安全距离
+          const mobileSpacer = document.getElementById("mobileSpacer");
+          if (mobileSpacer) {
+            mobileSpacer.style.height = `${headerHeight - 20}px`;
+          }
+        } else if (mainContent) {
+          // 非移动端时重置内边距
+          mainContent.style.paddingTop = "";
+        }
+      }
+
+      // 初始化和窗口大小变化时调整
+      function initAdjustment() {
+        window.requestAnimationFrame(adjustMobileContentPadding);
+      }
+      window.addEventListener("DOMContentLoaded", initAdjustment);
+      window.addEventListener("load", initAdjustment);
+      window.addEventListener("resize", adjustMobileContentPadding);
+      window.addEventListener("scroll", adjustMobileContentPadding);
+
+      // 导航高亮逻辑
+      const currentPath = window.location.pathname;
+      const navLinks = document.querySelectorAll(".nav-link");
+
+      navLinks.forEach((link) => {
+        if (
+          link.getAttribute("href") === currentPath ||
+          (currentPath.startsWith("/episodes/") && link.getAttribute("href") === "/episodes")
+        ) {
+          link.classList.add("bg-apple-blue/10", "text-apple-blue", "font-medium");
+          link.classList.remove("text-gray-700", "hover:bg-gray-100");
+        }
+      });
+
+      // 窗口大小变化时调整菜单状态
+      window.addEventListener("resize", () => {
+        if (window.innerWidth >= 1024) {
+          isMenuOpen = false;
+          if (sidebar) {
+            sidebar.classList.remove("-translate-x-full");
+          
+          sidebar.classList.add("translate-x-0");}
+          document.body.classList.remove("overflow-hidden");
+          if (overlay) {
+            overlay.classList.remove("active");
+          }
+        } else if (!isMenuOpen) {
+          if (sidebar) {
+          sidebar.classList.add("-translate-x-full");
+          sidebar.classList.remove("translate-x-0");}
+        }
+      });
+    });
+  </script>
+  <div class="flex flex-col h-full">
+    <div class="p-6 border-b border-gray-100">
+      <a
+        href="/"
+        class="text-xl font-medium tracking-tight flex items-center gap-2"
+      >
+        <svg
+          class="w-6 h-6 text-apple-blue"
+          fill="currentColor"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          version="1.1"
+          width="20"
+          height="19.2623291015625"
+          viewBox="0 0 20 19.2623291015625"
+        >
+          <g><g><ellipse cx="9.499728918075562" cy="16.131227731704712" rx="3.1484506130218506" ry="3.1310694217681885"></ellipse></g><g><path d="M9.505168305053711,5.775443077087402C9.505168305053711,5.775443077087402,12.65904830505371,11.226423077087404,12.65904830505371,11.226423077087404C12.65904830505371,11.226423077087404,6.351278305053711,11.226423077087404,6.351278305053711,11.226423077087404C6.351278305053711,11.226423077087404,9.505168305053711,5.775443077087402,9.505168305053711,5.775443077087402Z"></path></g><g><rect x="0" y="0" width="12.680805206298828" height="4.023342609405518" rx="0"></rect></g><g><path d="M14.584013938903809,11.2264C17.57518393890381,11.2264,20.00000393890381,8.7133,20.00000393890381,5.61321C20.00000393890381,2.51312,17.57518393890381,0,14.584013938903809,0L14.584013938903809,11.2264Z"></path></g></g>
+        </svg>
+        {config.site.name}
+      </a>
+    </div>
+    <nav class="flex-1 overflow-y-auto p-4">
+      <ul class="space-y-1">
+        <li>
+          <a
+            href="/"
+            class="nav-link flex items-center gap-3 px-3 py-2 text-sm rounded-lg text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h12a1 1 0 001-1v-4a1 1 0 00-1-1h-2a1 1 0 00-1 1v4a1 1 0 01-1 1m-6 0a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1m-6 0h12a1 1 0 001-1v-2a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 01-1 1"
+              ></path>
+            </svg>
+            首页
+          </a>
+        </li>
+        <li>
+          <a
+            href="/about"
+            class="nav-link flex items-center gap-3 px-3 py-2 text-sm rounded-lg text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+              ></path>
+            </svg>
+            关于
+          </a>
+        </li>
+        <li>
+          <a
+            href="/links"
+            class="nav-link flex items-center gap-3 px-3 py-2 text-sm rounded-lg text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13.828 10.172a4 4 0 00-5.656 0l-.707.707L14.707 18H5.293l-.707-.707a4 4 0 000-5.656l10-10z"
+              ></path>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M16 18l-1.414-1.414"></path>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M8 12h8"></path>
+            </svg>
+            友情链接
+          </a>
+        </li>
+        <li>
+          <a
+            href="/archive/"
+            class="nav-link flex items-center gap-3 px-3 py-2 text-sm rounded-lg text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"
+              ></path>
+            </svg>
+            博客存档
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <div class="p-4 border-t border-gray-100">
+      <div class="bg-gray-50 rounded-lg p-3 text-sm">
+        <p class="text-gray-500">
+          © {new Date().getFullYear()}
+          <a class="hover:text-apple-blue" href={config.site.url}>{config.site.name}</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</aside>

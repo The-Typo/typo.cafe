@@ -1,23 +1,48 @@
 ---
-import { config } from '../utils/config.ts';
-import Layout from '../layouts/Layout.astro';
+import { config } from "../utils/config.ts";
+import Layout from "../layouts/Layout.astro";
+import fs from "fs";
+import path from "path";
+
 ---
 
 <Layout title="关于">
-
   <section class="mt-10">
     <div class="px-6">
-        <h1 class="text-3xl font-bold mb-6">关于</h1>
+      <h1 class="text-3xl font-bold mb-6">关于</h1>
+
+      <div class="social-links mt-8 flex gap-4" id="social">
+        <a href="https://github.com/yourusername" class="text-gray-700 hover:text-blue-600 transition-colors">
+          <i class="fab fa-github text-2xl"></i>
+        </a>
+        <a href="https://weibo.com/yourusername" class="text-gray-700 hover:text-red-600 transition-colors">
+          <i class="fab fa-weibo text-2xl"></i>
+        </a>
+        <a href="#wechat" class="text-gray-700 hover:text-green-600 transition-colors">
+          <i class="fab fa-weixin text-2xl"></i>
+        </a>
+      </div>
+
     </div>
   </section>
-    
 </Layout>
 
+<script
+  is:inline
+  src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"
+></script>
+<script
+  is:inline
+  src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"
+></script>
+
+
 <style>
-  .about-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 2rem 0;
+
+  .chart-container {
+    height: 600px !important;
+    max-height: 600px !important;
+    overflow: hidden;
   }
 
   .content h2 {

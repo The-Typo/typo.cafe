@@ -1,10 +1,10 @@
 ---
-import { config } from '../utils/config.ts';
+import { config } from "../utils/config.ts";
 import Layout from "../layouts/Layout.astro";
 import fs from "fs";
 import path from "path";
 
-import { getAudioDurationFromUrl } from '../utils/audioMetadata.js';
+import { getAudioDurationFromUrl } from "../utils/audioMetadata.js";
 
 // 获取所有剧集数据
 export async function getEpisodes() {
@@ -17,12 +17,14 @@ export async function getEpisodes() {
       const id = file.replace(".json", "");
       const content = fs.readFileSync(path.join(episodesDir, file), "utf8");
       const episode = { ...JSON.parse(content), id };
-      
+
       // 忽略JSON中的duration，从音频文件获取实际时长
       // episode.duration = await getAudioDurationFromUrl(episode.audioUrl);
       // 只返回visible为true的剧集
-      return (episode.visible !== false && episode.avaliable !== false) ? episode : null;
-    })
+      return episode.visible !== false && episode.avaliable !== false
+        ? episode
+        : null;
+    }),
   );
 
   // 过滤掉visible为false的剧集并排序
@@ -32,58 +34,62 @@ export async function getEpisodes() {
 const episodes = await getEpisodes();
 ---
 
-<Layout title="首页" >
+<Layout title="首页">
   <section class="mt-10">
     <div class="px-6">
-        <h1 class="text-3xl font-bold mb-6">主页</h1>
-        <div class="space-y-6">
-            {/* 无播客内容时显示提示banner */}
-            
-            { episodes.map((episode) => (
-              <div class="bg-white rounded-xl shadow-sm p-5 border border-gray-100 hover:shadow-md transition-shadow duration-200" key={episode.id}>
-                <div class="episode-header">
-                    <h3 class="episode-title text-lg font-medium text-gray-900 mb-2">
-                    <a
-                        href={`/episodes/${episode.id}`}
-                        class="hover:text-blue-600 transition-colors duration-200"
-                    >
-                        <span class="ep-id ep-symbol text-xl">№{episode.id}</span> {episode.title}
-                    </a>
-                    </h3>
-                    <div class="episode-meta flex flex-wrap gap-x-4 gap-y-2 text-sm text-gray-500 mb-3">
-                    <span class="host">主持人：{episode.hosts.join("、")}</span>
-                    <span class="date" data-publish-date={episode.publishDate} />
-                    <span class="duration">时长：{episode.duration}</span>
-                    </div>
-                </div>
-                <p class="episode-description text-gray-600 leading-relaxed">
-                    {episode.description}
-                </p>
-                </div>
-            ))
-            }
+      <h1 class="text-3xl font-bold mb-6">主页</h1>
+      <div class="space-y-6">
+        {/* 无播客内容时显示提示banner */}
 
-            {
-            episodes.length === 0 && (
-                <div class="text-center py-12 bg-gray-50 rounded-lg">
-                <p class="text-gray-500">暂无节目数据</p>
+        {
+          episodes.map((episode) => (
+            <div
+              class="bg-white rounded-xl shadow-sm p-5 border border-gray-100 hover:shadow-md transition-shadow duration-200"
+              key={episode.id}
+            >
+              <div class="episode-header">
+                <h3 class="episode-title text-lg font-medium text-gray-900 mb-2">
+                  <a
+                    href={`/episodes/${episode.id}`}
+                    class="hover:text-blue-600 transition-colors duration-200"
+                  >
+                    <span class="ep-id ep-symbol text-xl">№{episode.id}</span>{" "}
+                    {episode.title}
+                  </a>
+                </h3>
+                <div class="episode-meta flex flex-wrap gap-x-4 gap-y-2 text-sm text-gray-500 mb-3">
+                  <span class="host">主持人：{episode.hosts.join("、")}</span>
+                  <span class="date" data-publish-date={episode.publishDate} />
+                  <span class="duration">时长：{episode.duration}</span>
                 </div>
-            )
-            }
+              </div>
+              <p class="episode-description text-gray-600 leading-relaxed">
+                {episode.description}
+              </p>
+            </div>
+          ))
+        }
 
-        </div>
+        {
+          episodes.length === 0 && (
+            <div class="text-center py-12 bg-gray-50 rounded-lg">
+              <p class="text-gray-500">暂无节目数据</p>
+            </div>
+          )
+        }
+      </div>
     </div>
   </section>
   <script is:inline type="module">
-      import { formatDate } from '../utils/dateFormatter.js';
-      document.addEventListener("DOMContentLoaded", () => {
-          // 格式化日期
-          document.querySelectorAll('.date').forEach(el => {
-            const publishDate = el.dataset.publishDate;
-            el.textContent = formatDate(publishDate);
-          });
+    import { formatDate } from "../utils/dateFormatter.js";
+    document.addEventListener("DOMContentLoaded", () => {
+      // 格式化日期
+      document.querySelectorAll(".date").forEach((el) => {
+        const publishDate = el.dataset.publishDate;
+        el.textContent = formatDate(publishDate);
       });
-    </script>
+    });
+  </script>
 </Layout>
 
 <style>

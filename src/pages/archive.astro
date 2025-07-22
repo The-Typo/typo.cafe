@@ -1,5 +1,5 @@
 ---
-import { config } from '../utils/config.ts';
+import { config } from "../utils/config.ts";
 import Layout from "../layouts/Layout.astro";
 import fs from "fs";
 import path from "path";
@@ -46,46 +46,48 @@ const sortedYears = Object.keys(episodesByYear).sort((a, b) => b - a);
 ---
 
 <Layout title="播客存档">
-
   <section class="mt-10">
     <div class="px-6">
-        <h1 class="text-3xl font-bold mb-6">播客存档</h1>
-    {
-      sortedYears.map((year) => (
-        <section class="mb-16" key={year}>
-          <div class="flex items-center mb-6">
-            <h2 class="text-2xl font-semibold text-gray-900">{year}年</h2>
-            <span class="ml-3 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-              {episodesByYear[year].length} 集节目
-            </span>
-          </div>
+      <h1 class="text-3xl font-bold mb-6">播客存档</h1>
+      {
+        sortedYears.map((year) => (
+          <section class="mb-16" key={year}>
+            <div class="flex items-center mb-6">
+              <h2 class="text-2xl font-semibold text-gray-900">{year}年</h2>
+              <span class="ml-3 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                {episodesByYear[year].length} 集节目
+              </span>
+            </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {episodesByYear[year].map((episode) => (
-              <article class="group" key={episode.id}>
-                <div class="flex items-start gap-3 p-4 bg-white rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-200 align-middle items-center">
-                  {/* 节目序号 */}
-                  <span class="inline-flex items-center justify-center w-8 h-5 bg-blue-500 text-white text-sm font-medium mt-0.5 flex-shrink-0" style="font-feature-settings: 'tnum';font-family: ANWT;">
-                    №{episode.id}
-                  </span>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {episodesByYear[year].map((episode) => (
+                <article class="group" key={episode.id}>
+                  <div class="flex items-start gap-3 p-4 bg-white rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-200 align-middle items-center">
+                    {/* 节目序号 */}
+                    <span
+                      class="inline-flex items-center justify-center w-8 h-5 bg-blue-500 text-white text-sm font-medium mt-0.5 flex-shrink-0"
+                      style="font-feature-settings: 'tnum';font-family: ANWT;"
+                    >
+                      №{episode.id}
+                    </span>
                     <h3 class="text-base font-medium text-gray-900 group-hover:text-blue-600 transition-colors duration-200 align-middle align-middle">
                       <a href={`/episodes/${episode.id}`}>{episode.title}</a>
                     </h3>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-      ))
-    }
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        ))
+      }
 
-    {
-      sortedYears.length === 0 && (
-        <div class="text-center py-12 bg-gray-50 rounded-lg">
-          <p class="text-gray-500">暂无节目数据</p>
-        </div>
-      )
-    }
+      {
+        sortedYears.length === 0 && (
+          <div class="text-center py-12 bg-gray-50 rounded-lg">
+            <p class="text-gray-500">暂无节目数据</p>
+          </div>
+        )
+      }
     </div>
   </section>
 </Layout>
